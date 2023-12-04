@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -26,7 +28,19 @@ public class InternetTerkep{
         System.out.print("URL:");
         Scanner sr = new Scanner(System.in);
         String url = sr.nextLine();
+        url=url.replaceAll("http://","https://");
         URL cim = new URL(url);
+        if(cim.getProtocol().equals("http://")){
+            Pattern joSor=Pattern.compile("^.*<a.*href=\".*$");
+            Matcher eredmeny=joSor.matcher("...");
+            if(eredmeny.matches()){
+                
+            }
+        url=url.replaceAll("http://", "");
+        url="https://"+url;
+        cim= new URL(url);
+        
+    }
         HttpURLConnection.getFollowRedirects(true);
         System.out.println(HttpURLConnection.getFollowRedirects());
         System.out.println(cim);
